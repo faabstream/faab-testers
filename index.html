@@ -27,6 +27,11 @@
   .step p { margin:0 0 12px; color:var(--muted); font-size:15px; }
   .btn { display:block; width:100%; text-align:center; text-decoration:none; background:var(--gold); color:#111; font-weight:700; padding:14px 16px; border-radius:12px; font-size:17px; border:0; cursor:pointer; }
   .btn:active { opacity:.8; }
+  .btn.pulse { animation:pulse 1.2s ease-in-out 3; }
+  @keyframes pulse { 0%,100% { transform:scale(1); box-shadow:0 0 0 0 rgba(245,166,35,.6); } 50% { transform:scale(1.03); box-shadow:0 0 0 10px rgba(245,166,35,0); } }
+  .btn.green { background:#22c55e; color:#06240f; font-size:19px; padding:18px 16px; box-shadow:0 6px 18px rgba(34,197,94,.25); }
+  .then { text-align:center; color:var(--muted); font-size:14px; margin:10px 0; }
+  .step.locked .btn.green { background:#3a3f47; color:#9ca3af; box-shadow:none; }
   .step.locked .btn { background:#3a3f47; color:#9ca3af; pointer-events:none; }
   .state { font-size:14px; margin:10px 0 0; color:var(--ok); display:none; }
   .step.done .state { display:block; }
@@ -74,12 +79,20 @@
   <div class="step locked" id="s2">
     <h2><span class="num">2</span><span data-l="fr">Deviens testeur et installe l'app</span><span data-l="en">Become a tester and install the app</span></h2>
     <p>
-      <span data-l="fr">Appuie sur le bouton, puis sur « Devenir testeur ». Ensuite appuie sur « Télécharger sur Google Play » pour installer l'app. Si le bouton n'apparaît pas, attends 5 minutes après l'étape 1 et réessaie.</span>
-      <span data-l="en">Tap the button, then tap “Become a tester”. Then tap “Download it on Google Play” to install the app. If the button doesn't show up, wait 5 minutes after step 1 and try again.</span>
+      <span data-l="fr">Appuie d'abord sur « Devenir testeur », puis sur le gros bouton vert pour installer l'app.</span>
+      <span data-l="en">First tap “Become a tester”, then tap the big green button to install the app.</span>
     </p>
     <a class="btn" id="b2" href="https://play.google.com/apps/testing/com.faabvayb.app" target="_blank" rel="noopener">
-      <span data-l="fr">Devenir testeur et installer</span><span data-l="en">Become a tester and install</span>
+      <span data-l="fr">A. Devenir testeur</span><span data-l="en">A. Become a tester</span>
     </a>
+    <div class="then"><span data-l="fr">puis</span><span data-l="en">then</span></div>
+    <a class="btn green" id="b3" href="https://play.google.com/store/apps/details?id=com.faabvayb.app" target="_blank" rel="noopener">
+      <span data-l="fr">B. Télécharger l'app sur Google Play</span><span data-l="en">B. Download the app on Google Play</span>
+    </a>
+    <p style="margin:10px 0 0;font-size:13px">
+      <span data-l="fr">Si Google dit « introuvable », attends 5 minutes après l'étape 1 et réessaie.</span>
+      <span data-l="en">If Google says “not found”, wait 5 minutes after step 1 and try again.</span>
+    </p>
     <div class="lockmsg"><span data-l="fr">🔒 Fais d'abord l'étape 1.</span><span data-l="en">🔒 Do step 1 first.</span></div>
     <div class="state"><span data-l="fr">✔ Étape 2 faite</span><span data-l="en">✔ Step 2 done</span></div>
   </div>
@@ -117,7 +130,29 @@
       var next = document.getElementById("s" + (n + 1));
       if (next) next.classList.remove("locked");
     }
-    document.getElementById("b1").addEventListener("click", function () { done(1); });
+    var waitingForReturn = false;
+    function showStep2() {
+      var s2 = document.getElementById("s2");
+      try { s2.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (e) { s2.scrollIntoView(); }
+      var b = document.getElementById("b2");
+      b.classList.add("pulse");
+      setTimeout(function () { b.classList.remove("pulse"); }, 4000);
+    }
+    document.getElementById("b1").addEventListener("click", function () {
+      done(1);
+      waitingForReturn = true;
+      // The group page opens in a new tab; this page moves to step 2 straight away,
+      // so it is already there when the person comes back.
+      setTimeout(showStep2, 300);
+    });
+    // Back from the Google Groups tab: make sure step 2 is on screen.
+    function goToStep2() {
+      if (!waitingForReturn) return;
+      waitingForReturn = false;
+      showStep2();
+    }
+    document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible") goToStep2(); });
+    window.addEventListener("focus", goToStep2);
     document.getElementById("b2").addEventListener("click", function () { done(2); });
   })();
 </script>
