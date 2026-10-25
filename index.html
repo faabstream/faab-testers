@@ -110,8 +110,7 @@
 
 <script>
   (function () {
-    var lang = "fr";
-    try { if (/^en/i.test(navigator.language || "")) lang = "en"; } catch (e) {}
+    var lang = "fr"; // always French by default; the EN button switches to English
     function set(l) {
       document.documentElement.setAttribute("data-lang", l);
       document.documentElement.lang = l;
