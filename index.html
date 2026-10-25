@@ -50,8 +50,8 @@
 
   <h1><span data-l="fr">Teste l'app Faab Vayb</span><span data-l="en">Test the Faab Vayb app</span></h1>
   <p class="sub">
-    <span data-l="fr">Pour téléphones Android. 3 étapes, environ 2 minutes.</span>
-    <span data-l="en">For Android phones. 3 steps, about 2 minutes.</span>
+    <span data-l="fr">Pour téléphones Android. 2 étapes, environ 1 minute.</span>
+    <span data-l="en">For Android phones. 2 steps, about 1 minute.</span>
   </p>
 
   <div class="warn">
@@ -72,30 +72,18 @@
   </div>
 
   <div class="step locked" id="s2">
-    <h2><span class="num">2</span><span data-l="fr">Deviens testeur</span><span data-l="en">Become a tester</span></h2>
+    <h2><span class="num">2</span><span data-l="fr">Deviens testeur et installe l'app</span><span data-l="en">Become a tester and install the app</span></h2>
     <p>
-      <span data-l="fr">Appuie sur « Devenir testeur ». Si le bouton n'apparaît pas, attends 5 minutes après l'étape 1 et réessaie.</span>
-      <span data-l="en">Tap “Become a tester”. If the button doesn't show up, wait 5 minutes after step 1 and try again.</span>
+      <span data-l="fr">Appuie sur le bouton, puis sur « Devenir testeur ». Ensuite appuie sur « Télécharger sur Google Play » pour installer l'app. Si le bouton n'apparaît pas, attends 5 minutes après l'étape 1 et réessaie.</span>
+      <span data-l="en">Tap the button, then tap “Become a tester”. Then tap “Download it on Google Play” to install the app. If the button doesn't show up, wait 5 minutes after step 1 and try again.</span>
     </p>
     <a class="btn" id="b2" href="https://play.google.com/apps/testing/com.faabvayb.app" target="_blank" rel="noopener">
-      <span data-l="fr">Devenir testeur</span><span data-l="en">Become a tester</span>
+      <span data-l="fr">Devenir testeur et installer</span><span data-l="en">Become a tester and install</span>
     </a>
     <div class="lockmsg"><span data-l="fr">🔒 Fais d'abord l'étape 1.</span><span data-l="en">🔒 Do step 1 first.</span></div>
     <div class="state"><span data-l="fr">✔ Étape 2 faite</span><span data-l="en">✔ Step 2 done</span></div>
   </div>
 
-  <div class="step locked" id="s3">
-    <h2><span class="num">3</span><span data-l="fr">Installe l'app</span><span data-l="en">Install the app</span></h2>
-    <p>
-      <span data-l="fr">Télécharge Faab Vayb sur Google Play et ouvre-la de temps en temps.</span>
-      <span data-l="en">Download Faab Vayb from Google Play and open it from time to time.</span>
-    </p>
-    <a class="btn" id="b3" href="https://play.google.com/store/apps/details?id=com.faabvayb.app" target="_blank" rel="noopener">
-      <span data-l="fr">Installer sur Google Play</span><span data-l="en">Install on Google Play</span>
-    </a>
-    <div class="lockmsg"><span data-l="fr">🔒 Fais d'abord l'étape 2.</span><span data-l="en">🔒 Do step 2 first.</span></div>
-    <div class="state"><span data-l="fr">✔ Étape 3 faite</span><span data-l="en">✔ Step 3 done</span></div>
-  </div>
 
   <div class="note">
     <span data-l="fr"><b>Important :</b> garde l'app installée pendant 14 jours. Ça nous aide à la publier pour tout le monde. Merci !</span>
@@ -131,7 +119,6 @@
     }
     document.getElementById("b1").addEventListener("click", function () { done(1); });
     document.getElementById("b2").addEventListener("click", function () { done(2); });
-    document.getElementById("b3").addEventListener("click", function () { done(3); });
   })();
 </script>
 </body>
